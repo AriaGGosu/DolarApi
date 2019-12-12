@@ -1,75 +1,84 @@
 import React, { Component} from 'react';
-import Calendar from 'react-calendar';
-import { Grid, Row, Col} from "react-flexbox-grid";
-import BarChart from '../graphics/BarChart';
-import PieChart from '../graphics/PieChart';
 import makeApiUrl from '../../constants/api_dolar';
+import { Grid, Row, Col} from "react-flexbox-grid";
+import Calendar from 'react-calendar';
+import BarChart from '../graphics/BarChart';
+import Details from '../details/index';
 
 class DatePickerA extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            dateStart: "ccccccccccccccccccccccccccccccccccccccccc",
-            dateEnd: "ccccccccccccccccccccccccccccccccccccccccc",
+            dateEnd: "",
             price: [],
             dates: [],
-            // @TODO 
-            dias: [],
-            mes: [],
-            año: []
+            dd: "",
+            mm: "",
+            yyyy: ""
         }
     }
 
-    onChangeA = data => {
+    setDateStart = data => {
+        let date = new Date(data)
         this.setState({
-            dateStart: data
+            yyyy : date.getFullYear(),
+            mm : date.getMonth()+1,
+            dd : date.getDate()
         })
+    
+        console.log("setDateStart")    
     }
     
-    onChangeB = data => {
+    setDateEnd = data => {
+        let date = new Date(data)
         this.setState({
-            dateEnd: data
+            dateEnd: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate().toString()}`
         })
+        console.log("setDataEnd")
     }
 
     componentDidMount() {
+        console.log("component did mount")
+        this.getApiData();
+    }
 
-        const yyyy = "2019";
-        const mm = "7";
-        const dd = "1";
+    componentDidUpdate(){
+        console.log("component did update")
+        this.getApiData();
+    }
+
+    getApiData(){
+
+        console.log("fetch")
+
+        const { yyyy, mm, dd, dateEnd} = this.state;
 
         fetch(makeApiUrl(yyyy, mm, dd))
         .then(res => res.json())
         .then(json => {
             const dolarValue = [];
-            const dolarDate = [];
-            console.log("json.Dolares",json.Dolares)
-                json.Dolares.map((element, index) => {
-                        dolarValue[index] = parseInt(element.Valor)
-                        dolarDate[index] = element.Fecha;
-                })
-                this.setState({
-                    price: dolarValue,
-                    dates: dolarDate
+            const dolarDate = [];            
 
-                })
-            }).catch( err => console.log(err));
-}
+            json.Dolares.map((element, index) => {
+                let dateA = new Date(element.Fecha);
+                let dateB = new Date(dateEnd);
+                
+                if(dateA <= dateB){
+                    dolarValue[index] = parseInt(element.Valor)
+                    dolarDate[index] = element.Fecha;
+                }
+
+            })
+            this.setState({
+                price: dolarValue,
+                dates: dolarDate
+            })
+        }).catch( err => console.log(err));
+    }
 
     render(){
-        const { dateStart } = this.state
-
-        let data = new Date(dateStart);
-
-        let yyyy =data.getFullYear();
-        let mm = data.getMonth();
-        let dd = data.getDay();
-        
-        console.log(data)
-
-        console.log("year", yyyy, "month", mm, "day", dd);
-
+        console.log("render")
        const { price, dates} = this.state;
         return(
             <div>
@@ -78,16 +87,14 @@ class DatePickerA extends Component {
                         <Col xs={12} sm={12} md={5} lg={4}>  
                             <div className="calendarCont">
                                 <label>Fecha de Inicio</label>
-                                <Calendar onChange={this.onChangeA}/>
+                                <Calendar onChange={this.setDateStart}/>
                                 <label>Fecha de Final</label>
-                                <Calendar onChange={this.onChangeB}/> 
+                                <Calendar onChange={this.setDateEnd}/> 
                             </div>
                         </Col>
                         <Col xs={12} sm={12} md={7} lg={8}>
-                            <div className="chartCont">
                             <BarChart price={price} dates={dates}/>
-                            <PieChart price={price} dates={dates}/>
-                            </div>
+                            <Details/>
                         </Col> 
                     </Row>
                 </Grid>
