@@ -27,6 +27,7 @@ class DatePicker extends Component {
                 dd : date.getDate()
             })
         this.callToApi();
+        console.log("validar si el valor se escribe ",this.state.yyyy)
     }
     
     setDateEnd = data => {
@@ -35,9 +36,12 @@ class DatePicker extends Component {
             dateEnd: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate().toString()}`
         })
         this.callToApi();
+        console.log("validar si el valor de end se escribe", this.state.dateEnd)
     }
 
     callToApi(){
+        console.log("call to api year ", this.state.yyyy)
+        console.log("call to api dateEnd", this.state.dateEnd)
         if(this.state.yyyy && this.state.dateEnd){
             this.getApiData();
         }
@@ -45,9 +49,11 @@ class DatePicker extends Component {
 
     getApiData(){
 
+        console.log("fetch")
+
         const { yyyy, mm, dd, dateEnd} = this.state;
 
-        fetch(makeApiUrl(yyyy, mm, dd), {mode: 'no-cors'})
+        fetch(makeApiUrl(yyyy, mm, dd))
         .then(res => res.json())
         .then(json => {
             const dolarValue = [];  
@@ -70,6 +76,7 @@ class DatePicker extends Component {
     }
 
     render(){
+        console.log("render")
        const { price, dates} = this.state;
         return(
             <div>
@@ -77,11 +84,11 @@ class DatePicker extends Component {
                     <Row>
                         <Col xs={12} sm={12} md={5} lg={4}>  
                             <div className="calendarCont">
-                                <label className="calendar__Text">Fecha de Inicio</label>
+                                <label className="calendar__text">Fecha de Inicio</label>
                                 <Calendar onChange={this.setDateStart}/>
                             </div>
                             <div className="calendarCont">
-                                <label className="calendar__Text">Fecha de Final</label>
+                                <label className="calendar__text">Fecha de Final</label>
                                 <Calendar onChange={this.setDateEnd}/> 
                             </div>
                         </Col>
@@ -96,6 +103,7 @@ class DatePicker extends Component {
             </div>
         )
     }
+
 }
 
 DatePicker.displayName = 'DatePicker';
