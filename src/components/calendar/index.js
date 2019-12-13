@@ -47,7 +47,7 @@ class DatePicker extends Component {
 
         const { yyyy, mm, dd, dateEnd} = this.state;
 
-        fetch(makeApiUrl(yyyy, mm, dd))
+        fetch(makeApiUrl(yyyy, mm, dd), {mode: 'no-cors'})
         .then(res => res.json())
         .then(json => {
             const dolarValue = [];  
