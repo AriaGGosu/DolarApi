@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import minValue from '../../../../arithmetic/minValue';
 
-const minData = ({ price }) => {
+const MinData = ({ price }) => {
 
     const min = `Valor minimo $ ${minValue(price)}`;
     return (
@@ -9,4 +10,10 @@ const minData = ({ price }) => {
     )
 }
 
-export default minData;
+MinData.propTypes = {
+    price: PropTypes.array.isRequired
+}
+
+MinData.displayName = 'MinData';
+
+export default MinData;

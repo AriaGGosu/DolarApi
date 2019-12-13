@@ -3,8 +3,12 @@ import DatePicker from './calendar';
 
 const MyApp = () => {
     return (
-        <DatePicker/>
+        <div className="myAppCont">
+            <DatePicker/>
+        </div>
     )
 }
+
+MyApp.displayName = 'MyApp';
 
 export default MyApp;

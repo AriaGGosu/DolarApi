@@ -9,7 +9,7 @@ const average = nums => {
     })
 
     // lets start the function 
-    total = (totalNumbers/divideNumber).toFixed(2);
+    total = parseInt(totalNumbers/divideNumber);
     if(!nums[0]){
         return ""
     }else{

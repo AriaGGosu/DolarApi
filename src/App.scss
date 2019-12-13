@@ -1,0 +1,12 @@
+@import 'styles/colors/colors.scss';
+
+@import 'styles/details.scss';
+@import 'styles/datePicker.scss';
+@import 'styles/myApp.scss';
+@import 'styles/calendar.scss';
+
+.App {
+  background-image: url('./img/bussiness.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+}

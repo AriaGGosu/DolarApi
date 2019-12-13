@@ -5,10 +5,10 @@ import Calendar from 'react-calendar';
 import BarChart from './graphics/BarChart';
 import Details from './details';
 
-class DatePickerA extends Component {
+class DatePicker extends Component {
 
-    constructor(props){
-        super(props);
+    constructor(){
+        super();
         this.state = {
             dateEnd: "",
             price: [],
@@ -27,7 +27,6 @@ class DatePickerA extends Component {
                 dd : date.getDate()
             })
         this.callToApi();
-        console.log("validar si el valor se escribe ",this.state.yyyy)
     }
     
     setDateEnd = data => {
@@ -36,20 +35,15 @@ class DatePickerA extends Component {
             dateEnd: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate().toString()}`
         })
         this.callToApi();
-        console.log("validar si el valor de end se escribe", this.state.dateEnd)
     }
 
     callToApi(){
-        console.log("call to api year ", this.state.yyyy)
-        console.log("call to api dateEnd", this.state.dateEnd)
         if(this.state.yyyy && this.state.dateEnd){
             this.getApiData();
         }
     }
 
     getApiData(){
-
-        console.log("fetch")
 
         const { yyyy, mm, dd, dateEnd} = this.state;
 
@@ -76,7 +70,6 @@ class DatePickerA extends Component {
     }
 
     render(){
-        console.log("render")
        const { price, dates} = this.state;
         return(
             <div>
@@ -84,14 +77,18 @@ class DatePickerA extends Component {
                     <Row>
                         <Col xs={12} sm={12} md={5} lg={4}>  
                             <div className="calendarCont">
-                                <label>Fecha de Inicio</label>
+                                <label className="calendar__Text">Fecha de Inicio</label>
                                 <Calendar onChange={this.setDateStart}/>
-                                <label>Fecha de Final</label>
+                            </div>
+                            <div className="calendarCont">
+                                <label className="calendar__Text">Fecha de Final</label>
                                 <Calendar onChange={this.setDateEnd}/> 
                             </div>
                         </Col>
                         <Col xs={12} sm={12} md={7} lg={8}>
-                            <BarChart price={price} dates={dates}/>
+                            <div className="calendarCont">
+                                <BarChart price={price} dates={dates}/>
+                            </div>
                             <Details price={price}/>
                         </Col> 
                     </Row>
@@ -99,7 +96,8 @@ class DatePickerA extends Component {
             </div>
         )
     }
-
 }
 
-export default DatePickerA;
+DatePicker.displayName = 'DatePicker';
+
+export default DatePicker;
