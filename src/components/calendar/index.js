@@ -45,6 +45,8 @@ class DatePicker extends Component {
     }
 
     callToApi(){
+
+        console.log("call to api")
         const {yyyy, dateEnd } = this.state;
 
         if(yyyy && dateEnd){
