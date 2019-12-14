@@ -18,31 +18,39 @@ class DatePicker extends Component {
             yyyy: ""
         }
     }
-
+    
     setDateStart = data => {
+        console.log("set data 1")
         let date = new Date(data)
-            this.setState({
-                yyyy : date.getFullYear(),
-                mm : date.getMonth()+1,
-                dd : date.getDate()
-            })
+        this.setState({
+            yyyy : date.getFullYear(),
+            mm : date.getMonth()+1,
+            dd : date.getDate()
+        })
+        this.forceUpdate();
         this.callToApi();
+
     }
     
     setDateEnd = data => {
+
+        console.log("set data 2")
+
         let date = new Date(data)
         this.setState({
             dateEnd: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate().toString()}`
         })
+        this.forceUpdate();
         this.callToApi();
     }
 
     callToApi(){
-        console.log("call to api year ", this.state.yyyy)
-        console.log("call to api dateEnd", this.state.dateEnd)
-        if(this.state.yyyy && this.state.dateEnd){
+        const {yyyy, dateEnd } = this.state;
+
+        if(yyyy && dateEnd){
             this.getApiData();
         }
+
     }
 
     getApiData(){
@@ -74,9 +82,9 @@ class DatePicker extends Component {
     }
 
     render(){
+
         console.log("render")
-        console.log("render year ",this.state.yyyy)
-        console.log("render end", this.state.dateEnd)
+
        const { price, dates} = this.state;
         return(
             <div>
