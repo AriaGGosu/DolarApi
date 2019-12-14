@@ -8,7 +8,7 @@ const makeApiUrl = (yyyy, mm , dd) => {
     return api_dolar; 
     */
 
-    const url =  `http://localhost/dolar/get_api_dolar.php?yyyy=${yyyy}&mm=${mm}&dd=${dd}`;
+    const url =  `https://husmg.csb.app/get_api_dolar.php?yyyy=${yyyy}&mm=${mm}&dd=${dd}`;
     return url;
 }
 
