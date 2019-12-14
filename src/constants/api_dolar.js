@@ -8,7 +8,7 @@ const makeApiUrl = (yyyy, mm , dd) => {
     return api_dolar; 
     */
 
-    const url =  `https://rawcdn.githack.com/AriaGGosu/DolarApi/3fb864a1b60b4474fde4069a0972a61ddf23bcc9/get_api_dolar.php?yyyy=${yyyy}&mm=${mm}&dd=${dd}`;
+    const url =  `/get_api_dolar.php?yyyy=${yyyy}&mm=${mm}&dd=${dd}`;
     return url;
 }
 export default makeApiUrl;
