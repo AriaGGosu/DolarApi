@@ -27,7 +27,8 @@ class DatePicker extends Component {
             mm : date.getMonth()+1,
             dd : date.getDate()
         })
-        this.forceUpdate();
+        this.render();
+        console.log(this.state.yyyy)
         this.callToApi();
 
     }
@@ -40,7 +41,8 @@ class DatePicker extends Component {
         this.setState({
             dateEnd: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate().toString()}`
         })
-        this.forceUpdate();
+        this.render();
+        console.log(this.state.dateEnd)
         this.callToApi();
     }
 

@@ -10,7 +10,7 @@ const makeApiUrl = (yyyy, mm , dd) => {
 
     //    https://frontend-dolar.herokuapp.com
 
-    const url =  `https://localhost/get_api_dolar.php?yyyy=${yyyy}&mm=${mm}&dd=${dd}`;
+    const url =  `http://localhost/get_api_dolar.php?yyyy=${yyyy}&mm=${mm}&dd=${dd}`;
     return url;
 }
 export default makeApiUrl;
