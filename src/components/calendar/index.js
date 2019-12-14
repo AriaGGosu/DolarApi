@@ -27,7 +27,6 @@ class DatePicker extends Component {
                 dd : date.getDate()
             })
         this.callToApi();
-        console.log("validar si el valor se escribe ",this.state.yyyy)
     }
     
     setDateEnd = data => {
@@ -36,7 +35,6 @@ class DatePicker extends Component {
             dateEnd: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate().toString()}`
         })
         this.callToApi();
-        console.log("validar si el valor de end se escribe", this.state.dateEnd)
     }
 
     callToApi(){
@@ -77,6 +75,8 @@ class DatePicker extends Component {
 
     render(){
         console.log("render")
+        console.log("render year ",this.state.yyyy)
+        console.log("render end", this.state.dateEnd)
        const { price, dates} = this.state;
         return(
             <div>
